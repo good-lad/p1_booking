@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel.ONE Booking</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; max-width: 800px; margin: auto; }
+        .form-container { width: 50%; padding-right: 20px; }
+        .carriers-container { width: 50%; background: #f4f4f4; padding: 20px; border-radius: 8px; display: none; }
+        label, select, input { display: block; margin-bottom: 10px; width: 100%; }
+        button { background-color: blue; color: white; padding: 10px; border: none; width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Parcel.ONE Booking</h2>
+        <form id="bookingForm">
+            <label>Name1: <input type="text" required></label>
+            <label>Name2: <input type="text"></label>
+            <label>Street: <input type="text" required></label>
+            <label>House Number: <input type="text" required></label>
+            <label>Postal Code: <input type="text" required></label>
+            <label>Country:
+                <select id="country">
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
+                    <!-- Add all EU countries here -->
+                </select>
+            </label>
+            <label>Telephone: <input type="tel" required></label>
+            <label>Email: <input type="email" required></label>
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+    
+    <div class="carriers-container" id="carrierSection">
+        <h3>Available Carriers (France Only)</h3>
+        <ul>
+            <li>Deutsche Post - <span id="priceDP">€10.00</span> (Base price)</li>
+            <li>Colissimo - €11.00 (10% more)</li>
+            <li>Mondial Relay - €9.50 (5% cheaper)</li>
+        </ul>
+        
+        <h3>Package Details</h3>
+        <label>Weight (kg): <input type="number" id="weight" min="1" value="1"></label>
+        <label>Length (cm): <input type="number" min="1"></label>
+        <label>Width (cm): <input type="number" min="1"></label>
+        <label>Height (cm): <input type="number" min="1"></label>
+        <p><strong>Total Price for Deutsche Post:</strong> <span id="totalPrice">€2.00</span></p>
+    </div>
+
+    <script>
+        document.getElementById("country").addEventListener("change", function () {
+            const carrierSection = document.getElementById("carrierSection");
+            carrierSection.style.display = (this.value === "France") ? "block" : "none";
+        });
+
+        document.getElementById("weight").addEventListener("input", function () {
+            const weight = parseFloat(this.value) || 1;
+            document.getElementById("totalPrice").innerText = `€${(weight * 2).toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>
